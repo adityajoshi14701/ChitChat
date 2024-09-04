@@ -6,11 +6,7 @@ const messageSchema = mongoose.Schema(
       type: Schema.Types.ObjectId,
       ref: "Chat",
     },
-    _id: {
-      type: UUID,
-      requied: true,
-    },
-    sender_id: {
+    senderId: {
       type: Schema.Types.ObjectId,
       ref: "User",
     },
@@ -25,6 +21,32 @@ const messageSchema = mongoose.Schema(
     readStatus: {
       type: Boolean,
       required: true,
+    },
+    replyTo: {
+      type: Schema.Types.ObjectId,
+      ref: "Message",
+    },
+    reactions: [
+      {
+        userId: {
+          type: Schema.Types.ObjectId,
+          ref: "User",
+        },
+        reactionType: {
+          type: String, // e.g., emoji or text
+        },
+      },
+    ],
+    mediaMetadata: {
+      duration: Number, // For voice notes, videos
+      dimensions: {
+        width: Number,
+        height: Number,
+      },
+    },
+    forwardedFrom: {
+      type: Schema.Types.ObjectId,
+      ref: "Message",
     },
     deletedAt: {
       type: Date,

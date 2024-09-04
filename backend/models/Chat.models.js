@@ -11,14 +11,39 @@ const chatSchema = mongoose.Schema(
       ref: "User",
       required: true,
     },
-    title: {
-      type: String,
-      trim: true,
-      lowercase: true,
+    lastMessage: {
+      type: Schema.Types.ObjectId,
+      ref: "Message",
     },
-    description: {
+    unreadCount: {
+      type: Number,
+      default: 0,
+    },
+    isPinned: {
+      type: Boolean,
+      default: false,
+    },
+    mutedUntil: {
+      type: Date,
+    },
+    isArchived: {
+      type: Boolean,
+      default: false,
+    },
+    chatType: {
       type: String,
-      trim: true,
+      enum: ["individual", "group"],
+      required: true,
+    },
+    media: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Media",
+      },
+    ],
+    createdBy: {
+      type: Schema.Types.ObjectId,
+      ref: "User",
     },
   },
   {

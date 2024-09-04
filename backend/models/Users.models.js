@@ -17,21 +17,32 @@ const userSchema = mongoose.Schema({
     required: true,
     trim: true,
   },
-
-  passwordResetToken: {
+  statusMessage: {
     type: String,
-    required: true,
+    trim: true,
   },
-  passwordResetExpires: {
-    type: Date,
-    required: true,
+  isOnline: {
+    type: Boolean,
+    default: false,
   },
-  googleString: {
-    type: String,
-  },
-  githubString: {
-    type: String,
-  },
+  contacts: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+    },
+  ],
+  blockedUsers: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+    },
+  ],
+  authProviders: [
+    {
+      providerName: String,
+      providerId: String,
+    },
+  ],
   tokens: {
     type: Schema.Types.ObjectId,
     ref: "Tokens",
@@ -41,7 +52,7 @@ const userSchema = mongoose.Schema({
     ref: "Profile",
   },
   lastSeen: {
-    type: timestamp,
+    type: Date,
     required: true,
   },
 });

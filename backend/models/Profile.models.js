@@ -1,6 +1,6 @@
 import mongoose, { Schema } from "mongoose";
 
-exports.profileSchema = Schema(
+const profileSchema = mongoose.Schema(
   {
     status: {
       type: String,
@@ -13,6 +13,20 @@ exports.profileSchema = Schema(
       type: Number,
       required: true,
     },
+    bio: {
+      type: String,
+      trim: true,
+    },
+    theme: {
+      type: String, // 'light', 'dark', etc.
+      default: "light",
+    },
+    lastUpdated: {
+      type: Date,
+      default: Date.now,
+    },
   },
   { timestamps: true }
 );
+
+export const Profile = mongoose.model("Profile", profileSchema);
